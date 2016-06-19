@@ -1,7 +1,6 @@
-## Put comments here that give an overall description of what your
-## functions do
+## Save cached versions to be able to complete subsequent calculations faster
 
-## Write a short comment describing this function
+## Creates a new object that is a matrix that can be cahed
 
 makeCacheMatrix <- function(x = matrix()) {
   
@@ -17,8 +16,16 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-## Write a short comment describing this function
+## This function checkes for cached inverse, otherwise calculates it
 
 cacheSolve <- function(x, ...) {
-  
+  inver = x$getinver()
+  if (!is.null(inver)){
+    message("retrieving cache")
+    return(inver)
+  }
+  data <- x$get()
+  inver <- solve(data, ...)
+  x$setinver(inver)
+  return(inver)
 }
